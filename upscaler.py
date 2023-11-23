@@ -11,13 +11,14 @@ We only programmed it to upscale by two, do not excpect more anytime soon.
 
 
 from pathlib import Path
-import cv2
+from PIL import Image
+import numpy as np
 
 from upscalers.nearest import *
 
 
 class Upscaler:
-    def __init__ (self, name:string):
+    def __init__ (self, name:str):
         self._name = name
 
         self._algorithm = eval(name + "()")  # unsafe as hell
@@ -33,13 +34,14 @@ class Upscaler:
         self._algorithm = eval(name + "()")
 
 
-    def upscale (input_picture:str, output_picture:str):
+    def upscale (self, input_picture:str, output_picture:str):
         if not Path(input_picture).exists(): raise OSError("Input picture not found, aborting...")
-        if not Path(output_picture).parent().exists(): raise OSError("Output folder not found, aborting...")
+        if not Path(output_picture).parent.exists(): raise OSError("Output folder not found, aborting...")
+        if Path(output_picture).exists(): raise OSError("The requested output file already exists, I do not want to be responsible for your mistakes, get crashed.")
 
 
-        # remember kids : do not nest your code unless you want to push unreadable and undebuggable garbage to your repo
-        if not cv2.imwrite(output_picture, self.algorithm.scale(cv2.imread(input_picture))): raise OSError("something prevented the image to be scaled, check your access rights")
+        # remember kids : do not nest code unless you want to commit unreadable and undebbuggable garbage on your repos
+        Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.uint8))).save(output_picture)
 
 
     name = property(get_name)

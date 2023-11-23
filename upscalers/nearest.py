@@ -1,8 +1,11 @@
 #!/bin/python3
 
+
 """
 This is the most basic upscale algorithm. Excpect nothing good from it.
 """
+
+import numpy as np
 
 
 class nearest:
@@ -10,17 +13,16 @@ class nearest:
         pass
 
 
-    def scale (mat):
-        n = len(mat)
-        m2 = [[0 for j in range(2*n) ] for _ in range(2*n)]
+    def scale (self, mat):
+        l, w, _ = mat.shape
+        upscaled_mat = np.zeros([2 * l, 2 * w, 3], dtype=np.uint8)
 
-        for i in range(n):
-            for j in range(n):
-                val = mat.item((i, j))
-                m2[2*i][2*j] = val
-                m2[2*i][2*j+1] = val
-                m2[2*i+1][2*j] = val
-                m2[2*i+1][2*j+1] = val
+        for i in range(l):
+            for j in range(w):
+                val = np.array(mat[i, j], dtype=np.uint8)
+                upscaled_mat[2*i][2*j] = val
+                upscaled_mat[2*i][2*j+1] = val
+                upscaled_mat[2*i+1][2*j] = val
+                upscaled_mat[2*i+1][2*j+1] = val
 
-        mat2 = np.matrix(m2)
-        return mat2
+        return upscaled_mat
