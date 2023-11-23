@@ -1,7 +1,7 @@
 #!/bin/python3
 
 import encoder
-import upscaler
+import processing
 import decoder
 import sys
 
