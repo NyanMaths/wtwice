@@ -15,6 +15,8 @@ from PIL import Image
 import numpy as np
 
 from upscalers.nearest import *
+from upscalers.blend import *
+from upscalers.fastblend import *
 
 
 class Upscaler:
@@ -41,7 +43,7 @@ class Upscaler:
 
 
         # remember kids : do not nest code unless you want to commit unreadable and undebbuggable garbage on your repos
-        Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.uint8))).save(output_picture)
+        Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.uint8))).save(output_picture, None, lossless=True)
 
 
     name = property(get_name)
