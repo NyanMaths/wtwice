@@ -3,7 +3,7 @@
 
 """
 This algorithm takes the average of two pixels to put between them in order to get a smoother result
-Not incredible, but still better than nearest.
+Not incredible, but still better than nearest for larger images.
 Author : Turbo Giga Chad
 
 Not really worky yet.
@@ -12,7 +12,7 @@ Not really worky yet.
 import numpy as np
 
 
-class blend:
+class dokidoki:
     def __init__ (self):
         pass
 

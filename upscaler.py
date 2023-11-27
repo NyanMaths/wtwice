@@ -15,7 +15,7 @@ from PIL import Image
 import numpy as np
 
 from upscalers.nearest import *
-from upscalers.blend import *
+from upscalers.dokidoki import *
 from upscalers.fastblend import *
 
 
