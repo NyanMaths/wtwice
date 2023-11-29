@@ -1,8 +1,7 @@
 #!/bin/python3
 
-
 """
-This is the most basic upscale algorithm. Excpect nothing good from it.
+This is the most basic upscale algorithm. Excpect nothing good from it but being fast.
 Author : Turbo Giga Chad
 """
 
@@ -15,15 +14,16 @@ class nearest:
 
 
     def scale (self, mat):
-        h, w, _ = mat.shape
-        upscaled_mat = np.zeros([2 * h, 2 * w, 3], dtype=np.uint8)
+        "Upscales mat from w*h to 2w*2h and returns it in RGB format"
 
-        for i in range(h):
-            for j in range(w):
-                val = np.array(mat[i, j], dtype=np.uint8)
-                upscaled_mat[2*i][2*j] = val
-                upscaled_mat[2*i][2*j+1] = val
-                upscaled_mat[2*i+1][2*j] = val
-                upscaled_mat[2*i+1][2*j+1] = val
+        height, width, _ = mat.shape
+        upscaled_mat = np.zeros([2 * height, 2 * width, 3], dtype=np.float32)
 
-        return upscaled_mat
+        for i in range(height):
+            for j in range(width):
+                upscaled_mat[2*i][2*j] = mat[i][j]
+                upscaled_mat[2*i][2*j+1] = mat[i][j]
+                upscaled_mat[2*i+1][2*j] = mat[i][j]
+                upscaled_mat[2*i+1][2*j+1] = mat[i][j]
+
+        return np.uint8(upscaled_mat)

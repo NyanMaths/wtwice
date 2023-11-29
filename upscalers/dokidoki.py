@@ -18,9 +18,10 @@ class dokidoki:
 
 
     def scale (self, m):
+        "Upscales m from w*h to 2w*2h and returns it in RGB format"
         h, w, _ = m.shape
         n = h
-        upscaled_mat = np.zeros([2 * h, 2 * w, 3], dtype=np.uint16)
+        upscaled_mat = np.zeros([2 * h, 2 * w, 3], dtype=np.float32)
 
         #valeurs fixes - coins
         upscaled_mat[0][0] = m[0][0]

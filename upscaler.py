@@ -23,7 +23,7 @@ class Upscaler:
     def __init__ (self, name:str):
         self._name = name
 
-        self._algorithm = eval(name + "()")  # unsafe as hell
+        self._algorithm = eval(name + "()")  # unsafe as hell, yolo
 
 
     def get_name (self):
@@ -37,13 +37,13 @@ class Upscaler:
 
 
     def upscale (self, input_picture:str, output_picture:str):
-        if not Path(input_picture).exists(): raise OSError("Input picture not found, aborting...")
-        if not Path(output_picture).parent.exists(): raise OSError("Output folder not found, aborting...")
-        if Path(output_picture).exists(): raise OSError("The requested output file already exists, I do not want to be responsible for your mistakes, get crashed.")
+        if not Path(input_picture).exists(): raise FileNotFoundError("Input picture not found, aborting...")
+        if not Path(output_picture).parent.exists(): raise FileNotFoundError("Output folder not found, aborting...")
+        if Path(output_picture).exists(): raise FileExistsError("The requested output file already exists, I do not want to be responsible for your mistakes, get crashed.")
 
 
-        # remember kids : do not nest code unless you want to commit unreadable and undebbuggable garbage on your repos
-        Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.uint8))).save(output_picture, None, lossless=True)
+        # remember kids : do not nest code unless you want to commit unreadable and undebuggable garbage on your repos
+        Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.float32))).save(output_picture, None, lossless=True)
 
 
     name = property(get_name)
