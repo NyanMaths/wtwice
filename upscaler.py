@@ -17,6 +17,8 @@ import numpy as np
 from upscalers.nearest import *
 from upscalers.dokidoki import *
 from upscalers.fastblend import *
+from upscalers.bilinear import *
+from upscalers.waifu2x_ncnn_vulkan import *
 
 
 class Upscaler:
@@ -36,14 +38,17 @@ class Upscaler:
         self._algorithm = eval(name + "()")
 
 
-    def upscale (self, input_picture:str, output_picture:str):
+    def upscale (self, input_picture:str, output_picture:str, ratio:int = 2, denoising:int = 0, lossless_compression:bool = True):
         if not Path(input_picture).exists(): raise FileNotFoundError("Input picture not found, aborting...")
         if not Path(output_picture).parent.exists(): raise FileNotFoundError("Output folder not found, aborting...")
         if Path(output_picture).exists(): raise FileExistsError("The requested output file already exists, I do not want to be responsible for your mistakes, get crashed.")
 
+        if self.algorithm._type == 'mat':
+            # remember kids : do not nest code unless you want to commit unreadable and undebuggable garbage on your repos
+            Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.float32), ratio, denoising)).save(output_picture, None, lossless=lossless_compression)
 
-        # remember kids : do not nest code unless you want to commit unreadable and undebuggable garbage on your repos
-        Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.float32))).save(output_picture, None, lossless=True)
+        else:
+            self.algorithm.scale(input_picture, output_picture, ratio, denoising)
 
 
     name = property(get_name)

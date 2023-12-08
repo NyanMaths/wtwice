@@ -4,9 +4,8 @@
 """
 This algorithm takes the average of two pixels to put between them in order to get a smoother result
 Not incredible, but still better than nearest for larger images.
+Now worky, faster than fastblend(...), but much more blurry result.
 Author : Turbo Giga Chad
-
-Not really worky yet.
 """
 
 import numpy as np
@@ -14,14 +13,18 @@ import numpy as np
 
 class dokidoki:
     def __init__ (self):
-        pass
+        self._type = 'mat'
 
 
-    def scale (self, m):
-        "Upscales m from w*h to 2w*2h and returns it in RGB format"
-        h, w, _ = m.shape
+    def scale (self, m, ratio:int, denoising:int):
+        """
+        Upscales input_mat from w*h to 2w*2h and returns it in RGB/RGBA format
+        Does not support either ratio and denoising, those parameters will be ignored
+        """
+
+        h, w, colours_dim = m.shape
         n = h
-        upscaled_mat = np.zeros([2 * h, 2 * w, 3], dtype=np.float32)
+        upscaled_mat = np.zeros([2 * h, 2 * w, colours_dim], dtype=np.float32)
 
         #valeurs fixes - coins
         upscaled_mat[0][0] = m[0][0]

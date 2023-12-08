@@ -12,14 +12,17 @@ import numpy as np
 
 class fastblend:
     def __init__ (self):
-        pass
+        self._type = 'mat'
 
 
-    def scale (self, input_mat):
-        "Upscales input_mat from w*h to (2w - 1)*(2h - 1) and returns it in RGB format"
+    def slow_scale (self, input_mat, ratio:int, denoising:int):
+        """
+        Upscales input_mat from w*h to (2w - 1)*(2h - 1) and returns it in RGB/RGBA format
+        Does not support either ratio and denoising, those parameters will be ignored
+        """
 
-        height, width, _ = input_mat.shape
-        upscaled_mat = np.zeros([2*height - 1, 2*width - 1, 3], dtype=np.float32)
+        height, width, colours_dim = input_mat.shape
+        upscaled_mat = np.zeros([2*height - 1, 2*width - 1, colours_dim], dtype=np.float32)
 
 
         for r in range(height):
@@ -39,6 +42,31 @@ class fastblend:
         for r in range(1, 2*height - 1, 2):
             for c in range(0, 2*width - 1, 2):
                 upscaled_mat[r][c] = np.rint((upscaled_mat[r - 1][c] + upscaled_mat[r + 1][c]) / 2.0)
+
+
+        return np.uint8(upscaled_mat)
+
+
+    def scale (self, input_mat, ratio:int, denoising:int):
+        """
+        Upscales input_mat from w*h to (2w - 1)*(2h - 1) and returns it in RGB/RGBA format
+        Does not support either ratio and denoising, those parameters will be ignored
+        """
+
+
+        height, width, colours_dim = input_mat.shape
+        upscaled_mat = np.zeros([2*height - 1, 2*width - 1, colours_dim], dtype=np.float32)
+
+        for i in range(height):
+            for j in range(width):
+                upscaled_mat[2*i][2*j] = input_mat[i][j]
+
+
+        for i in range(1, 2*(width-1), 2):
+            upscaled_mat[:, i] = 0.5 * (upscaled_mat[:, i-1] + upscaled_mat[:, i+1])
+
+        for j in range(1, 2*(height-1), 2):
+            upscaled_mat[j, :] = 0.5 * (upscaled_mat[j-1, :] + upscaled_mat[j+1, :])
 
 
         return np.uint8(upscaled_mat)
