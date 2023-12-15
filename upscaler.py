@@ -6,7 +6,7 @@ The generic class for upscaling, just name it and it will obey
 A little bit unsafe though, just do not rm -rf /
 Please do not
 
-We only programmed it to upscale by two, do not excpect more anytime soon.
+We only programmed it to upscale by integer scale factors, do not except more anytime soon.
 """
 
 
@@ -15,9 +15,13 @@ from PIL import Image
 import numpy as np
 
 from upscalers.nearest import *
+from upscalers.nearest_cpp import *
 from upscalers.dokidoki import *
+from upscalers.dokidoki_cpp import *
 from upscalers.fastblend import *
+from upscalers.fastblend_cpp import *
 from upscalers.bilinear import *
+from upscalers.bilinear_cpp import *
 from upscalers.waifu2x_ncnn_vulkan import *
 
 
@@ -43,7 +47,7 @@ class Upscaler:
         if not Path(output_picture).parent.exists(): raise FileNotFoundError("Output folder not found, aborting...")
         if Path(output_picture).exists(): raise FileExistsError("The requested output file already exists, I do not want to be responsible for your mistakes, get crashed.")
 
-        if self.algorithm._type == 'mat':
+        if self.algorithm.data_type == 'mat':
             # remember kids : do not nest code unless you want to commit unreadable and undebuggable garbage on your repos
             Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.float32), ratio, denoising)).save(output_picture, None, lossless=lossless_compression)
 

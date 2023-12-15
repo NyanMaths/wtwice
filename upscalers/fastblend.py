@@ -12,10 +12,10 @@ import numpy as np
 
 class fastblend:
     def __init__ (self):
-        self._type = 'mat'
+        pass
 
 
-    def slow_scale (self, input_mat, ratio:int, denoising:int):
+    def slow_scale (self, input_mat, ratio:int, denoising:int):  # do not use this one
         """
         Upscales input_mat from w*h to (2w - 1)*(2h - 1) and returns it in RGB/RGBA format
         Does not support either ratio and denoising, those parameters will be ignored
@@ -47,7 +47,7 @@ class fastblend:
         return np.uint8(upscaled_mat)
 
 
-    def scale (self, input_mat, ratio:int, denoising:int):
+    def scale (self, input_mat, ratio:int, denoising:int):  # barely readable, but way faster
         """
         Upscales input_mat from w*h to (2w - 1)*(2h - 1) and returns it in RGB/RGBA format
         Does not support either ratio and denoising, those parameters will be ignored
@@ -70,3 +70,6 @@ class fastblend:
 
 
         return np.uint8(upscaled_mat)
+
+
+    data_type = property(lambda object: 'mat')

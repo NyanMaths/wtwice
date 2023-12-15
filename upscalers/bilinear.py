@@ -10,10 +10,10 @@ import numpy as np
 
 class bilinear:
     def __init__ (self):
-        self._type = 'mat'
+        pass
 
 
-    def scale (self, input_mat, ratio:int, denoising:int):
+    def scale (self, input_mat:np.array, ratio:int, denoising:int) -> np.array:
         """
         Upscales input_mat from w*h to 2w*2h and returns it in RGB/RGBA format
         Does not support denoising, this parameter will be ignored
@@ -34,6 +34,9 @@ class bilinear:
                 x_weight = ratio_c * j - x_low
                 y_weight = ratio_c * i - y_low
 
+                # a | b
+                # -----
+                # c | d
                 a = input_mat[y_low, x_low]
                 b = input_mat[y_low, x_high]
                 c = input_mat[y_high, x_low]
@@ -44,3 +47,6 @@ class bilinear:
                 out_img[i, j] = pixel
 
         return np.uint8(out_img)
+
+
+    data_type = property(lambda object: 'mat')

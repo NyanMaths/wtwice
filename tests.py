@@ -15,7 +15,7 @@ tests
 |   |-- 512.webp
 |   |-- 1024.webp
 |
-|-- stray-cat-outside
+|-- there-s-a-stray-cat-outside
 |   |-- 128.webp 
 |   |-- 256.webp
 |   |-- 512.webp
@@ -31,15 +31,13 @@ import numpy as np
 from upscaler import *
 
 
-# this one is intended to compare outputs
-# stolen from stackoverflow : https://stackoverflow.com/questions/6646371/detect-which-image-is-sharper
+# this one is intended to compare outputs in terms of sharpness, meaning the average of gradient's norm
 def sharpness (picture_path:str):
-    im = Image.open(picture_path).convert('L')
-    picture_matrix = np.asarray(im, dtype=np.uint8)
+    picture = Image.open(picture_path).convert('L')
+    picture_matrix = np.asarray(picture, dtype=np.uint8)
 
     gy, gx = np.gradient(picture_matrix)
-    gnorm = np.sqrt(gx**2 + gy**2)
-    return np.average(gnorm)
+    return np.average(np.sqrt(gx*gx + gy*gy))
 
 
 
@@ -55,10 +53,10 @@ codec = input("What is your file's format (you better use webp) ? ")
 # Stores the upscaler's name and the upscale ratios to proceed with
 ratios = \
 {
-    'nearest': [2, 4],
-    'dokidoki': [2],
-    'fastblend': [2],
-    'bilinear': [2, 4],
+    'nearest_cpp': [2, 4],
+    'dokidoki_cpp': [2],
+    'fastblend_cpp': [2],
+    'bilinear_cpp': [2, 4],
     'waifu2x_ncnn_vulkan': [2, 4]
 }
 test_resolutions = ('128', '256', '512', '1024')
@@ -78,7 +76,7 @@ for upscaler_name in ratios.keys():
             u.upscale(upscale_directory + "." + codec, upscale_directory + "/{}/".format(ratio) + upscaler_name + "." + codec, ratio=ratio)
 
 
-if input("\nDo you want to compare images sharpness ? [Y/n] ") in ('n', 'N'): exit(0)
+if input("\nDo you want to compare images' sharpness ? [Y/n] ") in ('n', 'N'): exit(0)
 
 for res in test_resolutions:
     for ratio in ratios[upscaler_name]:

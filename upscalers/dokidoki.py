@@ -13,7 +13,7 @@ import numpy as np
 
 class dokidoki:
     def __init__ (self):
-        self._type = 'mat'
+        pass
 
 
     def scale (self, m, ratio:int, denoising:int):
@@ -66,3 +66,6 @@ class dokidoki:
                 upscaled_mat[2*(i+1)][2*(j+1)] = val_bloc
 
         return np.uint8(upscaled_mat)
+
+
+    data_type = property(lambda object: 'mat')

@@ -1,3 +1,8 @@
 *.code-workspace
 __pycache__
 tests
+.hidden
+upscalers/bilinear-cpp
+upscalers/dokidoki-cpp
+upscalers/fastblend-cpp
+upscalers/nearest-cpp
