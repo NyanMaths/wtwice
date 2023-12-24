@@ -13,7 +13,7 @@ class Nearest : public Upscaler
         virtual ~Nearest() override;
 
     private:
-        virtual cv::Mat* upscalePicture(cv::Mat* picture, const size_t ratio=2u, const int8_t denoising=0) override;
+        virtual Image* upscalePicture(Image* picture, const size_t ratio=2u, const int8_t denoising=0) override;
 };
 
 

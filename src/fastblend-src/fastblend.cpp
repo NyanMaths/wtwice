@@ -15,19 +15,19 @@ Fastblend::~Fastblend ()
 }
 
 
-Mat* Fastblend::upscalePicture(Mat* picture, const size_t, const int8_t)
+Image* Fastblend::upscalePicture(Image* picture, const size_t, const int8_t)
 {
     const Size picture_size(picture->size());
     const Size output_picture_size(picture_size.width * 2 - 1, picture_size.height * 2 - 1);
 
-    Mat* output_picture(new Mat(output_picture_size, CV_32FC3));
+    Image* output_picture(new Image(output_picture_size, CV_32FC3));
 
 
     for (size_t row(0) ; row < picture_size.height ; row++)
     {
         for (size_t col(0) ; col < picture_size.width ; col++)
         {
-            output_picture->at<Vec3f>(Point(col * 2, row * 2)) = picture->at<Vec3f>(Point(col, row));
+            output_picture->pixel(row * 2, col * 2) = picture->pixel(row, col);
         }
     }
 
@@ -36,25 +36,25 @@ Mat* Fastblend::upscalePicture(Mat* picture, const size_t, const int8_t)
     {
         for (size_t col(1) ; col < output_picture_size.width - 1 ; col += 2)
         {
-            const auto a(output_picture->at<Vec3f>(Point(col - 1, row - 1)));
-            const auto b(output_picture->at<Vec3f>(Point(col + 1, row - 1)));
-            const auto c(output_picture->at<Vec3f>(Point(col - 1, row + 1)));
-            const auto d(output_picture->at<Vec3f>(Point(col + 1, row + 1)));
+            const Vec3f a(output_picture->pixel(row - 1, col - 1));
+            const Vec3f b(output_picture->pixel(row - 1, col + 1));
+            const Vec3f c(output_picture->pixel(row + 1, col - 1));
+            const Vec3f d(output_picture->pixel(row + 1, col + 1));
 
 
-            output_picture->at<Vec3f>(Point(col, row)) = (a + b + c + d) / 4.0;
+            output_picture->pixel(row, col) = (a + b + c + d) / 4.0;
         
-            output_picture->at<Vec3f>(Point(col, row - 1)) = (a + b) / 2.0;
-            output_picture->at<Vec3f>(Point(col + 1, row)) = (b + d) / 2.0;
+            output_picture->pixel(row - 1, col) = (a + b) / 2.0;
+            output_picture->pixel(row, col + 1) = (b + d) / 2.0;
         }
     }
 
     for (size_t row(1) ; row < output_picture_size.height - 1 ; row += 2)
-        output_picture->at<Vec3f>(Point(0, row)) = (output_picture->at<Vec3f>(Point(0, row - 1)) + output_picture->at<Vec3f>(Point(0, row + 1))) / 2.0;
+        output_picture->pixel(row, 0) = (output_picture->pixel(row - 1, 0) + output_picture->pixel(row + 1, 0)) / 2.0;
 
     size_t last_pixel_height(output_picture_size.height - 1);
     for (size_t col(1) ; col < output_picture_size.width - 1 ; col += 2)
-        output_picture->at<Vec3f>(Point(col, last_pixel_height)) = (output_picture->at<Vec3f>(Point(col - 1, last_pixel_height)) + output_picture->at<Vec3f>(Point(col + 1, last_pixel_height))) / 2.0;
+        output_picture->pixel(col, last_pixel_height) = (output_picture->pixel(last_pixel_height, col - 1) + output_picture->pixel(last_pixel_height, col + 1)) / 2.0;
 
 
     return output_picture;

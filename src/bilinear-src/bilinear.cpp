@@ -20,13 +20,13 @@ Bilinear::~Bilinear ()
 }
 
 
-Mat* Bilinear::upscalePicture(Mat* picture, const size_t ratio, const int8_t)
+Image* Bilinear::upscalePicture(Image* picture, const size_t ratio, const int8_t)
 {
     const Size input_size(picture->size());
     const Size output_size(input_size.width * ratio, input_size.height * ratio);
     const float ratio_c(float(input_size.height - 1) / float(output_size.height - 1));
 
-    Mat* output_picture(new Mat(output_size, CV_32FC3));
+    Image* output_picture(new Image(output_size, CV_32FC3));
 
 
     for (size_t i(0) ; i < output_size.height ; i++)
@@ -38,15 +38,15 @@ Mat* Bilinear::upscalePicture(Mat* picture, const size_t ratio, const int8_t)
 
             const float x_weight(ratio_c*j - x_low), y_weight(ratio_c * i - y_low);
 
-            const Vec3f a(picture->at<Vec3f>(Point(x_low, y_low)));
-            const Vec3f b(picture->at<Vec3f>(Point(x_high, y_low)));
-            const Vec3f c(picture->at<Vec3f>(Point(x_low, y_high)));
-            const Vec3f d(picture->at<Vec3f>(Point(x_high, y_high)));
+            const Vec3f a(picture->pixel(y_low, x_low));
+            const Vec3f b(picture->pixel(y_low, x_high));
+            const Vec3f c(picture->pixel(y_high, x_low));
+            const Vec3f d(picture->pixel(y_high, x_high));
 
 
             const Vec3f output_pixel(a*(1-x_weight)*(1-y_weight) + b*x_weight*(1-y_weight) + c*(1-x_weight)*y_weight + d*x_weight*y_weight);
 
-            output_picture->at<Vec3f>(Point(j, i)) = output_pixel;
+            output_picture->pixel(i, j) = output_pixel;
         }
     }
 

@@ -3,6 +3,7 @@
 
 #include <cinttypes>
 #include <opencv4/opencv2/opencv.hpp>
+#include "image.hpp"
 
 
 class Upscaler
@@ -15,11 +16,11 @@ class Upscaler
 
 
     protected:
-        virtual cv::Mat* upscalePicture(cv::Mat* image, size_t ratio, int8_t denoising) = 0;
+        virtual Image* upscalePicture(Image* image, size_t ratio, int8_t denoising) = 0;
 
 
     private:
-        cv::Mat* getPicture(const std::string picture_path);
+        Image* getPicture(const std::string picture_path);
 };
 
 
