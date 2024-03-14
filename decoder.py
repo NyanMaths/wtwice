@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 """
 This module is used to probe metadata and frames from a video
@@ -9,6 +9,8 @@ from datetime import datetime
 from platformdirs import user_cache_dir
 import os
 import ffmpeg
+import imageio.v3 as iio
+import io
 
 
 class Decoder:
@@ -30,13 +32,16 @@ class Decoder:
         self._stream = ffmpeg.input(video_path)
 
 
-        self._stream.frames[]
+        self._video = iio.imopen(video_path, 'r')
 
 
-
-    def frames_directory (self):
+    def get_frames_directory (self):
         return self._frames_directory
 
-    #def decode_chunk (self):
-    
 
+    def decode_chunk (self, begin:int, end:int):
+        for i in range(end - begin):
+            imageio.imwrite(self.frames_directory + '/' + f'frame-{begin + i}.png', self._video.read(index=begin+i))
+
+
+    frames_directory = property(get_frames_directory)

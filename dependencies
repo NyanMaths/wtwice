@@ -1,8 +1,0 @@
-I only use Arch btw. I guess it works the same on other distros, these packages are commonly used,
-just do not forget that python2 still exist on some.
-
-Required packages : gcc python opencv vdk python-pillow python-numpy python-pathlib
-
-
-waifu2x_ncnn_vulkan is available on Arch repositories, but more tricky to install otherwise
-This one is not necessary at all.

@@ -1,8 +1,11 @@
 *.code-workspace
 __pycache__
 tests
-.hidden
+.vscode
+venv
+presentation.odp
 upscalers/bilinear-cpp
 upscalers/dokidoki-cpp
 upscalers/fastblend-cpp
 upscalers/nearest-cpp
+upscalers/nn/dataset

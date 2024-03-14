@@ -22,6 +22,7 @@ from upscalers.fastblend import *
 from upscalers.fastblend_cpp import *
 from upscalers.bilinear import *
 from upscalers.bilinear_cpp import *
+from upscalers.wthrice import *
 from upscalers.waifu2x_ncnn_vulkan import *
 
 

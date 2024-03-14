@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 import os
 import subprocess
@@ -19,8 +19,8 @@ class FramesProcessor:
         self._verbose = verbose
 
     
-    def upscale_working_directory (self):
-        for frame_path in [os.path.realpath(filename) for filename in os.listdir(self._working_directory)]:
+    def upscale_working_directory (self, begin:int, end:int):
+        for frame_path in [f"{self._working_directory}/frame-{begin + i}.png" for i in range(end - begin)]:
             self._upscaler.upscale(frame_path, os.path.join(_working_directory, os.path.basename(frame_path) + "-u" + Path(frame_path).suffix), self._ratio, self._denoising)
 
             Path(frame_path).unlink()  # removes the processed frame once upscaled
