@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/env python
 
 """
 This one is a simple wrapper for waifu2x-ncnn-vulkan, something probably better than anything we can do.

@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/env python
 
 """
 This is the most basic upscale algorithm. Excpect nothing good from it but being fast.

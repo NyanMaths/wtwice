@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/env python
 
 """
 This is a bilinear filter, a better version of fastblend, but awfully slow for now.

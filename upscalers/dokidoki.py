@@ -1,5 +1,4 @@
-#!/bin/python3
-
+#!/bin/env python
 
 """
 This algorithm takes the average of two pixels to put between them in order to get a smoother result

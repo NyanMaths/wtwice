@@ -1,5 +1,4 @@
-#!/bin/python3
-
+#!/bin/env python
 
 """
 Some weird algorithm, intended to be a simpler(by that understand less cursed) implementation of blend at the cost of a slightly smaller output image.

@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/env python
 
 """
 This one is a simple wrapper for a C++ implementation of Dokidoki, blazing fast.
