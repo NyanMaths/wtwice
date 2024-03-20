@@ -9,6 +9,9 @@ import torchvision as tv
 
 from pathlib import Path
 import sys
+import os
+
+path = os.path.dirname(os.path.realpath(__file__))
 
 
 class SRCNN(nn.Module):
@@ -19,20 +22,22 @@ class SRCNN(nn.Module):
 
 		self.computing_device = torch.device('cuda:0')
 
-		self.cl1 = nn.Conv2d(3, 8, 9, device=self.computing_device, padding=4, padding_mode='circular')
+		self.cl1 = nn.Conv2d(3, 8, 9, device=self.computing_device, padding='same')
 		self.cl2 = nn.Conv2d(8, 7, 1, device=self.computing_device)
-		self.cl3 = nn.Conv2d(7, 3, 5, device=self.computing_device, padding=2, padding_mode='circular')
+		self.cl3 = nn.Conv2d(7, 3, 5, device=self.computing_device, padding='same')
 
 
 		if checkpoint_path != "" and Path(checkpoint_path).exists():
 			self.load_state_dict(torch.load(checkpoint_path))
+		else:
+			self.load_state_dict(torch.load(path + "/checkpoints/default-checkpoint.pt"))
 
 		self.checkpoint_path = checkpoint_path
 		self.downscale_mode = 'bicubic'
 		self.upscale_mode = 'bicubic'
 
 
-	# magic formula here, do not touch
+	# magic formula, here be dragons
 	def forward (self, input_matrices:torch.Tensor):
 
 		input_matrices = self.cl1(input_matrices)
@@ -112,7 +117,7 @@ class SRCNN(nn.Module):
 	# just saves the model
 	def save_model(self, checkpoint_path):
 		if Path(checkpoint_path).exists():
-			if input("Already existing checkpoint file, replace (y/N) ?  ") in ['y', 'Y']:
+			if input("already existing checkpoint file, replace (y/N) ?  ") in ['y', 'Y']:
 				torch.save(self.state_dict(), checkpoint_path)
 
 		else:
