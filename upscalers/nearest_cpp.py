@@ -1,9 +1,9 @@
 #!/bin/env python
 
 """
-This one is a simple wrapper for a C++ implementation of Nearest, blazing fast.
-No, np.upsample does not exist, that is a lie.
-Wrapper : Houmous
+This one is a simple wrapper for a C++ implementation of nearest, blazing fast.
+Litteraly the same as torch.upsample, this algorithm is the most basic possible in upscaling.
+Wrapper : Tudi
 """
 
 import subprocess

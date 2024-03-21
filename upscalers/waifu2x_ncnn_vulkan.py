@@ -1,8 +1,8 @@
 #!/bin/env python
 
 """
-This one is a simple wrapper for waifu2x-ncnn-vulkan, something probably better than anything we can do.
-Wrapper : Houmous
+This one is a simple wrapper for waifu2x-ncnn-vulkan, a very good upscaler.
+Wrapper : Tudi
 """
 
 import subprocess

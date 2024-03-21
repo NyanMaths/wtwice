@@ -23,7 +23,7 @@ tests
 |   |-- 1024.webp
 
 
-Author : Houmous
+Author : Tudi
 """
 
 from pathlib import Path

@@ -1,8 +1,8 @@
-#!/usr/bin/env python3
+#!/bin/env python
 
 """
 This module is used to probe metadata and frames from a video
-in order to upscale them and re-encode them.
+in order to upscale them then re-encode them.
 """
 
 from datetime import datetime
@@ -15,7 +15,7 @@ import io
 
 class Decoder:
     def __init__ (self, video_path):
-        "Just creates the video probe using the file's path"
+        "creates the video probe using the file's path"
 
         self._video_path = video_path
         self._frames_directory = user_cache_dir("wtwice") + datetime.now().strftime("%d/%m/%Y %H:%M:%S")

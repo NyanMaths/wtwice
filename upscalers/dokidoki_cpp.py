@@ -1,8 +1,8 @@
 #!/bin/env python
 
 """
-This one is a simple wrapper for a C++ implementation of Dokidoki, blazing fast.
-Wrapper : Houmous
+This one is a simple wrapper for a C++ implementation of dokidoki, blazing fast.
+Wrapper : Tudi
 """
 
 import subprocess

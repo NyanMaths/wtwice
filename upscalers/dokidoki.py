@@ -3,8 +3,8 @@
 """
 This algorithm takes the average of two pixels to put between them in order to get a smoother result
 Not incredible, but still better than nearest for larger images.
-Now worky, faster than fastblend(...), but much more blurry result.
-Author : Turbo Giga Chad
+Faster than fastblend, but much more blurry results.
+Author : Salif
 """
 
 import numpy as np

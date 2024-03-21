@@ -1,8 +1,8 @@
 #!/bin/env python
 
 """
-This is a bilinear filter, a better version of fastblend, but awfully slow for now.
-Author : Turbo Giga Chad
+This is a bilinear filter, a better version of fastblend, but awfully slow because it is computed pixel-wise.
+Author : Salif
 """
 
 import numpy as np

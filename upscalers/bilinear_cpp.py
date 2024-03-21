@@ -1,8 +1,8 @@
 #!/bin/env python
 
 """
-This one is a simple wrapper for a C++ implementation of Bilinear, blazing fast.
-Wrapper : Houmous
+This one is a simple wrapper for a C++ implementation of bilinear, blazing fast compared to the Python implementation.
+Wrapper : Tudi
 """
 
 import subprocess

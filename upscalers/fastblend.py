@@ -1,9 +1,10 @@
 #!/bin/env python
 
 """
-Some weird algorithm, intended to be a simpler(by that understand less cursed) implementation of blend at the cost of a slightly smaller output image.
+Some weird algorithm, works in a similar way to bilinear, but only upscale by a factor 2 minus 1 pixel.
 It just puts a new pixel between two and computes it as the average of its neighbours.
-Author : Houmous
+Just use bilinear instead, this one is close to bad.
+Author : Tudi
 """
 
 import numpy as np
@@ -12,38 +13,6 @@ import numpy as np
 class fastblend:
     def __init__ (self):
         pass
-
-
-    def slow_scale (self, input_mat, ratio:int, denoising:int):  # do not use this one
-        """
-        Upscales input_mat from w*h to (2w - 1)*(2h - 1) and returns it in RGB/RGBA format
-        Does not support either ratio and denoising, those parameters will be ignored
-        """
-
-        height, width, colours_dim = input_mat.shape
-        upscaled_mat = np.zeros([2*height - 1, 2*width - 1, colours_dim], dtype=np.float32)
-
-
-        for r in range(height):
-            for c in range(width):
-                upscaled_mat[2*r][2*c] = input_mat[r][c]
-
-
-        for r in range(1, 2*height - 1, 2):
-            for c in range(1, 2*width - 1, 2):
-                upscaled_mat[r][c] = np.rint((upscaled_mat[r - 1][c - 1] + upscaled_mat[r + 1][c - 1] + upscaled_mat[r - 1][c + 1] + upscaled_mat[r + 1][c + 1]) / 4.0)
-
-
-        for r in range(0, 2*height - 1, 2):
-            for c in range(1, 2*width - 1, 2):
-                upscaled_mat[r][c] = np.rint((upscaled_mat[r][c - 1] + upscaled_mat[r][c + 1]) / 2.0)
-
-        for r in range(1, 2*height - 1, 2):
-            for c in range(0, 2*width - 1, 2):
-                upscaled_mat[r][c] = np.rint((upscaled_mat[r - 1][c] + upscaled_mat[r + 1][c]) / 2.0)
-
-
-        return np.uint8(upscaled_mat)
 
 
     def scale (self, input_mat, ratio:int, denoising:int):  # barely readable, but way faster

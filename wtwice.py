@@ -16,7 +16,7 @@ class WTwice:
         self.args['-u'] = 'waifu2x_ncnn_vulkan'
 
         if len(sys.argv) % 2 == 0:
-            raise RuntimeError("Wrong number of command-line arguments, please fix ur computer grammar.")
+            raise RuntimeError("wrong number of command-line arguments")
 
         i = 1
         while i < len(sys.argv):
@@ -24,12 +24,12 @@ class WTwice:
                 self.args[sys.argv[i]] = sys.argv[i + 1]
 
             else:
-                print(f"Unknown argument {sys.argv[i]}, it will be ignored\n")
+                print(f"unknown argument {sys.argv[i]}, it will be ignored\n")
 
             i += 2
 
         if (self.args['-i'] == '' or self.args['-o'] == ''):
-            raise RuntimeError("Please specify both input and output media path with the arguments -i and -o")
+            raise RuntimeError("please specify both input and output media path with the arguments -i and -o")
 
 
         self._decoder = decoder.Decoder(self.args['i'])
@@ -43,7 +43,7 @@ class WTwice:
 
 
 if __name__ == "__main__":
-    # launch upscaler with given command-line arguments because me too lazy to code a proper GUI
+    # launches upscaler with given command-line arguments, no GUI planned
     
     app = WTwice()
     app.start()

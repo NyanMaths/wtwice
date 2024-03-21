@@ -2,11 +2,10 @@
 
 
 """
-The generic class for upscaling, just name it and it will obey
-A little bit unsafe though, just do not rm -rf /
-Please do not
+The generic class for upscaling, just name it to have it working.
+It is intended to upscale by integer scale factors, do not except more anytime soon.
 
-We only programmed it to upscale by integer scale factors, do not except more anytime soon.
+Author : Tudi
 """
 
 
@@ -30,7 +29,7 @@ class Upscaler:
     def __init__ (self, name:str):
         self._name = name
 
-        self._algorithm = eval(name + "()")  # unsafe as hell, yolo
+        self._algorithm = eval(name + "()")  # terribly unsafe
 
 
     def get_name (self):
@@ -44,9 +43,9 @@ class Upscaler:
 
 
     def upscale (self, input_picture:str, output_picture:str, ratio:int = 2, denoising:int = 0, lossless_compression:bool = True):
-        if not Path(input_picture).exists(): raise FileNotFoundError("Input picture not found, aborting...")
-        if not Path(output_picture).parent.exists(): raise FileNotFoundError("Output folder not found, aborting...")
-        if Path(output_picture).exists(): raise FileExistsError("The requested output file already exists, I do not want to be responsible for your mistakes, get crashed.")
+        if not Path(input_picture).exists(): raise FileNotFoundError("input picture not found, aborting")
+        if not Path(output_picture).parent.exists(): raise FileNotFoundError("output folder not found, aborting")
+        if Path(output_picture).exists(): raise FileExistsError("the requested output file already exists, I will not be responsible for this mistakes")
 
         if self.algorithm.data_type == 'mat':
             # remember kids : do not nest code unless you want to commit unreadable and undebuggable garbage on your repos

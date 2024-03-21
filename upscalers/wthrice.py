@@ -1,9 +1,9 @@
 #!/bin/env python
 
 """
-This is a small SRCNN trained on a gaming screenshots dataset.
+This is a small SRCNN trained on a gaming screenshots dataset (https://www.kaggle.com/datasets/aditmagotra/gameplay-images).
 In the current state of training, it does better than a bicubic algorithm.
-Author : Houmous
+Author : Tudi
 """
 
 from upscalers.wthrice.srcnn import SRCNN

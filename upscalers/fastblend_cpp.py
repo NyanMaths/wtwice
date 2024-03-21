@@ -1,8 +1,8 @@
 #!/bin/env python
 
 """
-This one is a simple wrapper for a C++ implementation of Fastblend, blazing fast.
-Wrapper : Houmous
+This one is a simple wrapper for a C++ implementation of fastblend, blazing fast.
+Wrapper : Tudi
 """
 
 import subprocess

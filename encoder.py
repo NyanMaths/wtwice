@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/bin/env python
 
 import os
 import imageio.v3 as iio
@@ -7,9 +7,9 @@ import io
 
 class Encoder:
     def __init__ (self, output_path):
-        "Just initializes the output file"
+        "initializes the output file"
         if not os.path.exists(os.path.dirname(output_path)):
-            raise FileNotFoundError("Output folder does not exist, terminating program")
+            raise FileNotFoundError("output folder does not exist, terminating program")
         
         self._output_path = output_path
 
