@@ -8,7 +8,7 @@ Author : Tudi
 
 from upscalers.wthrice.srcnn import SRCNN
 
-class wthrice:
+class Wthrice:
     def __init__ (self):
         self.model = SRCNN("upscalers/wthrice/checkpoints/default-checkpoint.pt")
 
@@ -20,6 +20,3 @@ class wthrice:
         """
 
         return self.model.upscale(input_picture_path, output_picture_path, ratio)
-
-    
-    data_type = property(lambda object: 'file')

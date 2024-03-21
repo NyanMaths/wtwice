@@ -9,7 +9,7 @@ Wrapper : Tudi
 import subprocess
 
 
-class nearest_cpp:
+class NearestCPP:
     def __init__ (self):
         pass
 
@@ -18,6 +18,3 @@ class nearest_cpp:
         "Just calls nearest-cpp to upscale input_picture_path to output_picture_path. Ignores denoising argument."
 
         subprocess.run(["upscalers/nearest-cpp", "{}".format(input_picture_path), "{}".format(output_picture_path), "{}".format(ratio)])
-
-
-    data_type = property(lambda object: 'file')

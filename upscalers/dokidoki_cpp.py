@@ -8,7 +8,7 @@ Wrapper : Tudi
 import subprocess
 
 
-class dokidoki_cpp:
+class DokiDokiCPP:
     def __init__ (self):
         pass
 
@@ -17,6 +17,3 @@ class dokidoki_cpp:
         "Just calls dokidoki-cpp to upscale input_picture_path to output_picture_path. Ignores denoising and ratio arguments."
 
         subprocess.run(["upscalers/dokidoki-cpp", "{}".format(input_picture_path), "{}".format(output_picture_path)])
-
-
-    data_type = property(lambda object: 'file')

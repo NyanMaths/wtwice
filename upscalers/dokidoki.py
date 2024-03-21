@@ -10,7 +10,7 @@ Author : Salif
 import numpy as np
 
 
-class dokidoki:
+class DokiDoki:
     def __init__ (self):
         pass
 
@@ -65,6 +65,3 @@ class dokidoki:
                 upscaled_mat[2*(i+1)][2*(j+1)] = val_bloc
 
         return np.uint8(upscaled_mat)
-
-
-    data_type = property(lambda object: 'mat')

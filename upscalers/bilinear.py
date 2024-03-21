@@ -8,7 +8,7 @@ Author : Salif
 import numpy as np
 
 
-class bilinear:
+class Bilinear:
     def __init__ (self):
         pass
 
@@ -41,6 +41,3 @@ class bilinear:
                 img_scale[i][j] = val
 
         return np.uint8(img_scale)
-
-
-    data_type = property(lambda object: 'mat')

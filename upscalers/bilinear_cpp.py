@@ -8,7 +8,7 @@ Wrapper : Tudi
 import subprocess
 
 
-class bilinear_cpp:
+class BilinearCPP:
     def __init__ (self):
         pass
 
@@ -17,6 +17,3 @@ class bilinear_cpp:
         "Just calls bilinear-cpp to upscale input_picture_path to output_picture_path. Ignores denoising argument."
 
         subprocess.run(["upscalers/bilinear-cpp", "{}".format(input_picture_path), "{}".format(output_picture_path), "{}".format(ratio)])
-
-
-    data_type = property(lambda object: 'file')

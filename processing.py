@@ -7,10 +7,10 @@ from upscaler import *
 
 
 class FramesProcessor:
-    "basically upscales everything inside the cache directory following the given settings"
+    "upscales everything inside the cache directory following the given settings"
 
-    def __init__ (self, upscaler:str, ratio:int = 2, denoising_strength:int = 1, frames_directory:str = "/var/wtwice", verbose:bool = False):
-        self._upscaler = Upscaler(upscaler)
+    def __init__ (self, upscaler_name:str, ratio:int = 2, denoising_strength:int = 1, frames_directory:str = "/var/wtwice", verbose:bool = False):
+        self._upscaler = Upscaler(upscaler_name)
         self._ratio = ratio
         self._denoising = denoising_strength
         self._working_directory = frames_directory

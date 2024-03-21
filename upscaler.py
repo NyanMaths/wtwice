@@ -25,11 +25,24 @@ from upscalers.wthrice import *
 from upscalers.waifu2x_ncnn_vulkan import *
 
 
-class Upscaler:
-    def __init__ (self, name:str):
-        self._name = name
+algorithms = \
+{
+    'nearest': (Nearest, 'mat'),
+    'nearest_cpp': (NearestCPP, 'file'),
+    'dokidoki': (DokiDoki, 'mat'),
+    'dokidoki_cpp': (DokiDokiCPP, 'file'),
+    'fastblend': (Fastblend, 'mat'),
+    'fastblend_cpp': (FastblendCPP, 'file'),
+    'bilinear': (Bilinear, 'mat'),
+    'bilinear_cpp': (BilinearCPP, 'file'),
+    'wthrice': (Wthrice, 'file'),
+    'waifu2x_ncnn_vulkan': (Waifu2xNCNNVulkan, 'file')
+}
 
-        self._algorithm = eval(name + "()")  # terribly unsafe
+class Upscaler:
+    def __init__ (self, algorithm_name):
+        self._name = algorithm_name
+        self._algorithm = algorithms[algorithm_name][0]()
 
 
     def get_name (self):
@@ -38,8 +51,8 @@ class Upscaler:
     def get_algorithm (self):
         return self._algorithm
 
-    def set_algorithm (self, new_algorithm:str):
-        self._algorithm = eval(name + "()")
+    def set_algorithm (self, new_algorithm_name):
+        self._algorithm = upscalers[new_algorithm_name][0]()
 
 
     def upscale (self, input_picture:str, output_picture:str, ratio:int = 2, denoising:int = 0, lossless_compression:bool = True):
@@ -47,8 +60,7 @@ class Upscaler:
         if not Path(output_picture).parent.exists(): raise FileNotFoundError("output folder not found, aborting")
         if Path(output_picture).exists(): raise FileExistsError("the requested output file already exists, I will not be responsible for this mistakes")
 
-        if self.algorithm.data_type == 'mat':
-            # remember kids : do not nest code unless you want to commit unreadable and undebuggable garbage on your repos
+        if algorithms[self._name][1] == 'mat':
             Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.float32), ratio, denoising)).save(output_picture, None, lossless=lossless_compression)
 
         else:

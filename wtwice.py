@@ -20,7 +20,7 @@ class WTwice:
 
         i = 1
         while i < len(sys.argv):
-            if sys.argv[i] in ('-i', '-o', '-r', '-n', '-u'):
+            if sys.argv[i] in self.args.keys():
                 self.args[sys.argv[i]] = sys.argv[i + 1]
 
             else:
@@ -31,6 +31,7 @@ class WTwice:
         if (self.args['-i'] == '' or self.args['-o'] == ''):
             raise RuntimeError("please specify both input and output media path with the arguments -i and -o")
 
+        self.args['-u'] = eval(self.args('-u'))
 
         self._decoder = decoder.Decoder(self.args['i'])
         self._upscaler = processing.FramesProcessor(self.args['-u'], self.args['-r'], self.args['-n'], _decoder.frames_directory())

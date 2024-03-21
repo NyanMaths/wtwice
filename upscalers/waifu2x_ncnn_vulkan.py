@@ -9,7 +9,7 @@ import subprocess
 from shutil import which
 
 
-class waifu2x_ncnn_vulkan:
+class Waifu2xNCNNVulkan:
     def __init__ (self):
         pass
 
@@ -21,6 +21,3 @@ class waifu2x_ncnn_vulkan:
         if not denoising in [-1, 0, 1, 2, 3]: raise ValueError("Please choose a correct denoising factor between -1, 0, 1, 2, 3.\nAborting for now...")
 
         subprocess.run(["waifu2x-ncnn-vulkan", "-i", "{}".format(input_picture_path), "-o", "{}".format(output_picture_path), "-s", "{}".format(ratio), "-n", "{}".format(denoising)])
-
-
-    data_type = property(lambda object: 'file')

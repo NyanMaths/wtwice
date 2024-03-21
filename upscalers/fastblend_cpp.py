@@ -8,7 +8,7 @@ Wrapper : Tudi
 import subprocess
 
 
-class fastblend_cpp:
+class FastblendCPP:
     def __init__ (self):
         pass
 
@@ -17,6 +17,3 @@ class fastblend_cpp:
         "Just calls fastblend-cpp to upscale input_picture_path to output_picture_path. Ignores denoising and ratio arguments."
 
         subprocess.run(["upscalers/fastblend-cpp", "{}".format(input_picture_path), "{}".format(output_picture_path)])
-
-
-    data_type = property(lambda object: 'file')

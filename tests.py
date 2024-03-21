@@ -67,11 +67,11 @@ codec = input("what image format should be used ? ")
 # Stores the upscaler's name and the upscale ratios to proceed with
 ratios = \
 {
-    'nearest_cpp': [2, 4],
-    'dokidoki_cpp': [2],
-    'bilinear_cpp': [2, 4],
-    'wthrice': [2, 4],
-    'waifu2x_ncnn_vulkan': [2, 4]
+    'nearest_cpp': (2, 4),
+    'dokidoki_cpp': (2),
+    'bilinear_cpp': (2, 4),
+    'wthrice': (2, 4),
+    'waifu2x_ncnn_vulkan': (2, 4)
 }
 test_resolutions = ('128', '256')
 
