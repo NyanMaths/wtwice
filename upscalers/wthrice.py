@@ -6,7 +6,7 @@ In the current state of training, it does better than a bicubic algorithm.
 Author : Tudi
 """
 
-from upscalers.wthrice.srcnn import SRCNN
+from upscalers.srcnn.srcnn import SRCNN
 
 class Wthrice:
     def __init__ (self):
