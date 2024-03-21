@@ -68,7 +68,7 @@ codec = input("what image format should be used ? ")
 ratios = \
 {
     'nearest_cpp': (2, 4),
-    'dokidoki_cpp': (2),
+    'dokidoki_cpp': (2,),
     'bilinear_cpp': (2, 4),
     'wthrice': (2, 4),
     'waifu2x_ncnn_vulkan': (2, 4)
