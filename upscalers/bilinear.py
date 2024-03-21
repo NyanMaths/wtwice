@@ -1,7 +1,7 @@
 #!/bin/env python
 
 """
-This is a bilinear filter, a better version of fastblend, but awfully slow because it is computed pixel-wise.
+This is a bilinear filter, a better version of fastblend, but slower because it is computed pixel-wise.
 Author : Salif
 """
 
@@ -19,34 +19,28 @@ class bilinear:
         Does not support denoising, this parameter will be ignored
         """
 
-        h, w, colours_dim = input_mat.shape
-        hi = h * ratio
-        wi = w * ratio
+        n, m, colours_dim = img.shape
+        n2, m2 = n*r, m*r    #output image's size (n2 x m2)
+        r_i = (n - 1)/(n2 - 1)      #inverse ratio (-1 to stay in the indexes interval) for n dimension
+        r_j = (m - 1)/(m2 - 1)      #inverse ratio for m dimension
+        img_scale = np.zeros((n2, m2, colours_dim), dtype=np.float32)
 
-        ratio_c = (h - 1) / (hi - 1)
-        out_img = np.zeros((hi, wi, colours_dim), dtype=np.float32)
 
-        for i in range(hi):
-            for j in range(wi):
-                x_low, y_low = np.int64(np.floor(ratio_c * j)), np.int64(np.floor(ratio_c * i))
-                x_high, y_high = np.int64(np.ceil(ratio_c * j)), np.int64(np.ceil(ratio_c * i))
+        for i in range(n2):
+            for j in range(m2):
+                x = r_j*j       #abscissa value calculation
+                y = r_i*i       #ordinate value calculation
+                xf, yf = np.int64(np.floor(x)), np.int64(np.floor(y))   #floor value of x and y
+                xc, yc = np.int64(np.ceil(x)), np.int64(np.ceil(y))     #ceil value of x and y
+                wx, wy = x - xf, y - yf     #weights associated with x (wx) and y (wy) values
 
-                x_weight = ratio_c * j - x_low
-                y_weight = ratio_c * i - y_low
+                val_g = (1 - wy)*img[yf][xf] + wy*img[yf][xc]   #left linear interpolation on y coordinate
+                val_d = (1 - wy)*img[yc][xf] + wy*img[yc][xc]   #right linear interpolation on x coordinate
 
-                # a | b
-                # -----
-                # c | d
-                a = input_mat[y_low, x_low]
-                b = input_mat[y_low, x_high]
-                c = input_mat[y_high, x_low]
-                d = input_mat[y_high, x_high]
+                val = (1 - wx)*val_g + wx*val_d     #linear interpolation on x coordinate / final value
+                img_scale[i][j] = val
 
-                pixel = a*(1 - x_weight)*(1 - y_weight) + b*x_weight*(1 - y_weight) + c*(1 - x_weight)*y_weight + d*x_weight*y_weight
-
-                out_img[i, j] = pixel
-
-        return np.uint8(out_img)
+        return np.uint8(img_scale)
 
 
     data_type = property(lambda object: 'mat')
