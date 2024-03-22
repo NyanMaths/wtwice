@@ -14,9 +14,9 @@ Available algorithms :
 Already done :
  - an easy to use image upscaler
  - an acceptable codebase
+ - removed those terrible eval() calls
 
 To do :
  - video upscaler
  - bicubic implementation
  - documentation ?
- - removeing those terrible eval() calls
