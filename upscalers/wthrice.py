@@ -15,8 +15,8 @@ class Wthrice:
 
     def scale (self, input_picture_path:str, output_picture_path:str, ratio:int, denoising:int):
         """
-        Upscales input_mat from w*h to rw*rh and returns it in RGB/RGBA format
+        Upscales input_mat from w*h to rw*rh and returns it in RGB format, no alpha channel
         Does not support denoising, this parameter will be ignored
         """
 
-        return self.model.upscale(input_picture_path, output_picture_path, ratio)
+        self.model.upscale(input_picture_path, output_picture_path, ratio)
