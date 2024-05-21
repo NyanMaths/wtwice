@@ -22,9 +22,9 @@ class SRCNN(nn.Module):
 
 		self.computing_device = torch.device('cuda:0')
 
-		self.cl1 = nn.Conv2d(3, 8, 9, device=self.computing_device, padding='same')
-		self.cl2 = nn.Conv2d(8, 7, 1, device=self.computing_device)
-		self.cl3 = nn.Conv2d(7, 3, 5, device=self.computing_device, padding='same')
+		self.cl1 = nn.Conv2d(3, 14, 9, device=self.computing_device, padding='same')
+		self.cl2 = nn.Conv2d(14, 13, 1, device=self.computing_device)
+		self.cl3 = nn.Conv2d(13, 3, 5, device=self.computing_device, padding='same')
 
 
 		if checkpoint_path != "" and Path(checkpoint_path).exists():
