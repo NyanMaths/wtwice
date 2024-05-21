@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 
 """
 This is just a test script to show the capabilities of our upscale algorithms compared to other ones.
