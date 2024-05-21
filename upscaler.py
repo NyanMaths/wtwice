@@ -13,13 +13,9 @@ from pathlib import Path
 from PIL import Image
 import numpy as np
 
-from upscalers.nearest import *
 from upscalers.nearest_cpp import *
-from upscalers.dokidoki import *
 from upscalers.dokidoki_cpp import *
-from upscalers.fastblend import *
 from upscalers.fastblend_cpp import *
-from upscalers.bilinear import *
 from upscalers.bilinear_cpp import *
 from upscalers.wthrice import *
 from upscalers.waifu2x_ncnn_vulkan import *
@@ -27,13 +23,9 @@ from upscalers.waifu2x_ncnn_vulkan import *
 
 algorithms = \
 {
-    'nearest': (Nearest, 'mat'),
     'nearest_cpp': (NearestCPP, 'file'),
-    'dokidoki': (DokiDoki, 'mat'),
     'dokidoki_cpp': (DokiDokiCPP, 'file'),
-    'fastblend': (Fastblend, 'mat'),
     'fastblend_cpp': (FastblendCPP, 'file'),
-    'bilinear': (Bilinear, 'mat'),
     'bilinear_cpp': (BilinearCPP, 'file'),
     'wthrice': (Wthrice, 'file'),
     'waifu2x_ncnn_vulkan': (Waifu2xNCNNVulkan, 'file')
