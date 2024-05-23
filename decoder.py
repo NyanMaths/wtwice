@@ -18,7 +18,7 @@ class Decoder:
         "creates the video probe using the file's path"
 
         self._video_path = video_path
-        self._frames_directory = user_cache_dir("wtwice") + datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        self._frames_directory = user_cache_dir("wtwice") + "/" + datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
 
         # Getting paths ready to call decode_chunk safely
