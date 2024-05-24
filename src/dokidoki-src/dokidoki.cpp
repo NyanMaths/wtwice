@@ -82,7 +82,7 @@ int main (int argc, char** argv)
 
     if (argc < 3)
     {
-        std::cout<<"u should get sudo rm -rf / ed for this";
+        std::cout<<"a bit too few arguments to make this program work"<<std::endl;
         return 1;
     }
     else if (argc < 4)
