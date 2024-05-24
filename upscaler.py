@@ -50,7 +50,7 @@ class Upscaler:
     def upscale (self, input_picture:str, output_picture:str, ratio:int = 2, denoising:int = 0, lossless_compression:bool = True):
         if not Path(input_picture).exists(): raise FileNotFoundError("input picture not found, aborting")
         if not Path(output_picture).parent.exists(): raise FileNotFoundError("output folder not found, aborting")
-        if Path(output_picture).exists(): raise FileExistsError("the requested output file already exists, I will not be responsible for this mistakes")
+        if Path(output_picture).exists(): raise FileExistsError("the requested output file already exists, I will not be responsible for this mistake")
 
         if algorithms[self._name][1] == 'mat':
             Image.fromarray(self.algorithm.scale(np.array(Image.open(input_picture), dtype=np.float32), ratio, denoising)).save(output_picture, None, lossless=lossless_compression)
